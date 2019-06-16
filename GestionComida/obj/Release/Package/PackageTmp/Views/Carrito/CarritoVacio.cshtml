@@ -1,0 +1,16 @@
+﻿
+@{
+    ViewBag.Title = "CarritoVacio";
+}
+<style>
+    .botonCarrito {
+        visibility: hidden;
+        display: none;
+    }
+</style>
+
+<div class="jumbotron">
+    <h1>Su carrito está vacío <i class="fas fa-frown"></i></h1>
+    <br />
+    <p><a href="@Url.Action("Index", "Escaparate")" class="btn btn-success"><i class="fas fa-shopping-basket"></i> Ir a la tienda</a></p>
+</div>

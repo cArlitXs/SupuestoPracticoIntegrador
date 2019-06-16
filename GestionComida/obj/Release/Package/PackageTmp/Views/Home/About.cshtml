@@ -1,0 +1,84 @@
+﻿@{
+    ViewBag.Title = "Nosotros";
+}
+<style>
+    .col-sm-3:nth-of-type(1) {
+        width: 100%;
+        border-bottom: 8px solid #FC6F72;
+        border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 5px;
+        background-color: white;
+        height: 200px;
+        color: #FC6F72;
+    }
+
+    .col-sm-3:nth-of-type(2) {
+        width: 100%;
+        border-bottom: 8px solid #A6CB5D;
+        border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 5px;
+        background-color: white;
+        height: 200px;
+        color: #A6CB5D;
+    }
+
+    .col-sm-3:nth-of-type(3) {
+        width: 100%;
+        border-bottom: 8px solid #EDC677;
+        border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 5px;
+        background-color: white;
+        height: 200px;
+        color: #EDC677;
+    }
+
+    span {
+        font-size: 18px;
+        display: block;
+        margin: 15px 0 50px 0;
+        font-weight: bold;
+    }
+
+    a {
+        color: black;
+    }
+
+    .aboutIcon {
+        opacity: 0.2;
+        transition: 1s;
+        -webkit-transition: 1s;
+        -moz-transition: 1s;
+        -o-transition: 1s;
+    }
+
+    .aboutIcon:hover {
+        opacity: 1;
+        cursor: pointer;
+        transition: 1s;
+        -webkit-transition: 1s;
+        -moz-transition: 1s;
+        -o-transition: 1s;
+    }
+</style>
+<h2>@ViewBag.Title</h2>
+@*<h3>@ViewBag.Message</h3>
+
+<p>Use this area to provide additional information.</p>*@
+
+<h2 class="description">Podemos brindarle cualquier servicio o solución.</h2>
+<div class="row">
+    <div class="col-sm-3">
+        <span>Portafolio</span>
+        <a href="#"><i class="fa fa-briefcase fa-5x aboutIcon" aria-hidden="true"></i></a>
+    </div>
+    <div class="col-sm-3">
+        <span>Servicios</span>
+        <a href="#">
+            <i class="fa fa-cogs fa-5x aboutIcon" aria-hidden="true"></i>
+        </a>
+    </div>
+    <div class="col-sm-3">
+        <span>Contacto</span>
+        <a href="#"><i class="fa fa-globe fa-5x aboutIcon" aria-hidden="true"></i></a>
+    </div>
+</div>

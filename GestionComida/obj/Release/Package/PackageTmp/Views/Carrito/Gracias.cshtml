@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "Gracias";
+}
+<style>
+    .botonCarrito {
+        visibility: hidden;
+        display: none;
+    }
+</style>
+
+<div class="jumbotron">
+    <h2 class="text-uppercase"><b>¡Gracias por su compra! <i class="fas fa-smile-beam"></i></b></h2>
+    <h4>¡Vuelva pronto!</h4>
+    <br />
+    <p>
+        <a href="@Url.Action("Index", "Escaparate")" class="btn btn-primary"><i class="fas fa-undo"></i> Volver a la tienda</a>
+        <a href="@Url.Action("Index", "Pedidos")" class="btn btn-default"><i class="fas fa-list-ul"></i> Ver mis pedidos</a>
+    </p>
+</div>

@@ -1,0 +1,145 @@
+﻿@model IEnumerable<GestionComida.Models.Pedido>
+
+@{
+    ViewBag.Title = "Pedido";
+}
+<style>
+    .status-bold {
+        font-weight: bold;
+    }
+
+    .status-primary {
+        color: blue;
+    }
+
+    .status-success {
+        color: green;
+    }
+
+    .status-warning {
+        color: orange;
+    }
+
+    .status-danger {
+        color: red;
+    }
+    .botonCarrito {
+        visibility: hidden;
+        display: none;
+    }
+</style>
+<h2>Pedidos</h2>
+
+@*<p>
+    @if (Request.IsAuthenticated)
+    {
+        if (User.IsInRole("Administrador"))
+        {
+            @Html.ActionLink("Crear nuevo", "Create")
+        }
+    }
+</p>*@
+<table class="table">
+    <tr>
+        <th>
+            ID
+        </th>
+        @*<th>
+                Fecha de compra
+            </th>
+            <th>
+                Fecha de pago
+            </th>
+            <th>
+                Fecha de envío
+            </th>
+            <th>
+                Fecha de entrega
+            </th>
+            <th>
+                Fecha de devolución
+            </th>*@
+        <th>Estado</th>
+        <th></th>
+        @*<th></th>*@
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            @*<td>
+                    @Html.DisplayFor(modelItem => item.FechaCompra)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaPago)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaEnvio)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaEntrega)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaDevolucion)
+                </td>*@
+            <th>
+                @if (item.FechaCompra != null)
+                {
+                    if (item.FechaPago != null)
+                    {
+                        if (item.FechaEnvio != null)
+                        {
+                            if (item.FechaEntrega != null)
+                            {
+                                if (item.FechaDevolucion != null)
+                                {
+                                    <span class="text-danger">Devuelto</span>
+                                }
+                                else
+                                {
+                                    <span class="text-info">Entregado</span>
+                                }
+                            }
+                            else
+                            {
+                                <span class="text-primary">Enviado</span>
+                            }
+                        }
+                        else
+                        {
+                            <span class="text-success"><i class="fas fa-money-bill-alt"></i> Pagado</span>
+                        }
+                    }
+                    else
+                    {
+                        <span class="text-muted"><i class="fas fa-ban"></i> Sin confirmar</span>
+                    }
+                }
+            </th>
+            <td>
+                @if (Request.IsAuthenticated)
+                {
+                    if (User.IsInRole("Usuario"))
+                    {
+                        @*<span class="btn btn-info">@Html.ActionLink("Detalles", "Details", new { id = item.Id })</span>*@
+                        <a href="@Url.Action("Details", new { id = item.Id })" class="btn btn-info"><i class="fas fa-info-circle"></i> Detalles</a>
+                    }
+                    if (User.IsInRole("Administrador"))
+                    {
+                        @*<span class="btn btn-info">@Html.ActionLink("Detalles", "Details", new { id = item.Id }) |</span>*@
+                        <a href="@Url.Action("Details", new { id = item.Id })" class="btn btn-info"><i class="fas fa-info-circle"></i> Detalles</a>
+                        @*<span>@Html.ActionLink("Editar", "Edit", new { id = item.Id }) |</span>*@
+                        @*<span class="btn btn-danger">@Html.ActionLink("Eliminar", "Delete", new { id = item.Id })</span>*@
+                        <a href="@Url.Action("Delete", new { id = item.Id })" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Borrar</a>
+                    }
+                }
+            </td>
+            @*<td>
+                    @Html.ActionLink("Pagar", "Index", "Carrito", new { @class = "btn btn-success" })
+                </td>*@
+        </tr>
+    }
+</table>

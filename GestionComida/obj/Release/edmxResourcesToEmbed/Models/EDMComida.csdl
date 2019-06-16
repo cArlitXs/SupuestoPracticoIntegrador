@@ -1,0 +1,139 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DBTiendaModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Categoria">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="Producto" Relationship="Self.FK__Producto__IdCate__2E1BDC42" FromRole="Categoria" ToRole="Producto" />
+  </EntityType>
+  <EntityType Name="LineaPedidoProducto">
+    <Key>
+      <PropertyRef Name="IdPedido" />
+      <PropertyRef Name="IdProducto" />
+    </Key>
+    <Property Name="IdPedido" Type="Int32" Nullable="false" />
+    <Property Name="IdProducto" Type="Int32" Nullable="false" />
+    <Property Name="Cantidad" Type="Int32" Nullable="false" />
+    <Property Name="PVP" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+    <NavigationProperty Name="Pedido" Relationship="Self.FK__LineaPedi__IdPed__29572725" FromRole="LineaPedidoProducto" ToRole="Pedido" />
+    <NavigationProperty Name="Producto" Relationship="Self.FK__LineaPedi__IdPro__2A4B4B5E" FromRole="LineaPedidoProducto" ToRole="Producto" />
+  </EntityType>
+  <EntityType Name="Pedido">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+    <Property Name="FechaCompra" Type="DateTime" Precision="3" />
+    <Property Name="FechaPago" Type="DateTime" Precision="3" />
+    <Property Name="FechaEnvio" Type="DateTime" Precision="3" />
+    <Property Name="FechaEntrega" Type="DateTime" Precision="3" />
+    <Property Name="FechaDevolucion" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="LineaPedidoProducto" Relationship="Self.FK__LineaPedi__IdPed__29572725" FromRole="Pedido" ToRole="LineaPedidoProducto" />
+    <NavigationProperty Name="Cliente" Relationship="DBTiendaModel.FK_Pedido_Cliente" FromRole="Pedido" ToRole="Cliente" />
+  </EntityType>
+  <EntityType Name="Producto">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+    <Property Name="Precio" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="IVA" Type="Double" />
+    <Property Name="Stock" Type="Int32" />
+    <Property Name="Escaparate" Type="Boolean" />
+    <Property Name="IdCategoria" Type="Int32" />
+    <NavigationProperty Name="Categoria" Relationship="Self.FK__Producto__IdCate__2E1BDC42" FromRole="Producto" ToRole="Categoria" />
+    <NavigationProperty Name="LineaPedidoProducto" Relationship="Self.FK__LineaPedi__IdPro__2A4B4B5E" FromRole="Producto" ToRole="LineaPedidoProducto" />
+  </EntityType>
+  <Association Name="FK__Producto__IdCate__2E1BDC42">
+    <End Role="Categoria" Type="Self.Categoria" Multiplicity="0..1" />
+    <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Categoria">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Producto">
+        <PropertyRef Name="IdCategoria" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__LineaPedi__IdPed__29572725">
+    <End Role="Pedido" Type="Self.Pedido" Multiplicity="1" />
+    <End Role="LineaPedidoProducto" Type="Self.LineaPedidoProducto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pedido">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LineaPedidoProducto">
+        <PropertyRef Name="IdPedido" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__LineaPedi__IdPro__2A4B4B5E">
+    <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+    <End Role="LineaPedidoProducto" Type="Self.LineaPedidoProducto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Producto">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LineaPedidoProducto">
+        <PropertyRef Name="IdProducto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DBTiendaEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Categoria" EntityType="Self.Categoria" />
+    <EntitySet Name="LineaPedidoProducto" EntityType="Self.LineaPedidoProducto" />
+    <EntitySet Name="Pedido" EntityType="Self.Pedido" />
+    <EntitySet Name="Producto" EntityType="Self.Producto" />
+    <AssociationSet Name="FK__Producto__IdCate__2E1BDC42" Association="Self.FK__Producto__IdCate__2E1BDC42">
+      <End Role="Categoria" EntitySet="Categoria" />
+      <End Role="Producto" EntitySet="Producto" />
+    </AssociationSet>
+    <AssociationSet Name="FK__LineaPedi__IdPed__29572725" Association="Self.FK__LineaPedi__IdPed__29572725">
+      <End Role="Pedido" EntitySet="Pedido" />
+      <End Role="LineaPedidoProducto" EntitySet="LineaPedidoProducto" />
+    </AssociationSet>
+    <AssociationSet Name="FK__LineaPedi__IdPro__2A4B4B5E" Association="Self.FK__LineaPedi__IdPro__2A4B4B5E">
+      <End Role="Producto" EntitySet="Producto" />
+      <End Role="LineaPedidoProducto" EntitySet="LineaPedidoProducto" />
+    </AssociationSet>
+    <EntitySet Name="Cliente" EntityType="DBTiendaModel.Cliente" />
+    <AssociationSet Name="FK_Pedido_Cliente" Association="DBTiendaModel.FK_Pedido_Cliente">
+      <End Role="Cliente" EntitySet="Cliente" />
+      <End Role="Pedido" EntitySet="Pedido" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Cliente">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Telefono" Type="String" MaxLength="9" FixedLength="true" Unicode="true" />
+    <Property Name="CP" Type="String" MaxLength="5" FixedLength="true" Unicode="true" />
+    <Property Name="Direccion" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Poblacion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Provincia" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="FechaNacimiento" Type="DateTime" Precision="3" />
+    <Property Name="Activo" Type="Boolean" />
+    <NavigationProperty Name="Pedido" Relationship="DBTiendaModel.FK_Pedido_Cliente" FromRole="Cliente" ToRole="Pedido" />
+  </EntityType>
+  <Association Name="FK_Pedido_Cliente">
+    <End Type="DBTiendaModel.Cliente" Role="Cliente" Multiplicity="1" />
+    <End Type="DBTiendaModel.Pedido" Role="Pedido" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Cliente">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Pedido">
+        <PropertyRef Name="IdUsuario" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

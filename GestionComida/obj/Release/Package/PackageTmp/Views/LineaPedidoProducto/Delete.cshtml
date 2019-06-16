@@ -1,0 +1,52 @@
+﻿@model GestionComida.Models.LineaPedidoProducto
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Borrar producto</h2>
+
+<h3>¿Está seguro de esta acción?</h3>
+<div>
+    <h4>Producto</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Cantidad)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cantidad)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PVP)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PVP)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Producto.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Producto.Nombre)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.IdPedido)
+        @Html.HiddenFor(model => model.IdProducto)
+    <div class="form-actions no-color">
+        @*<input type="submit" value="Borrar" class="btn btn-danger" /> |*@
+        <button type="submit" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Borrar</button>
+        @*@Html.ActionLink("Volver a pedido", "Details/" + Model.IdPedido, "Carrito")*@
+        <a href="@Url.Action("Details/" + Model.IdPedido, "Carrito")" class="btn btn-primary"><i class="fas fa-undo"></i> Volver al pedido</a>
+    </div>
+    }
+</div>
