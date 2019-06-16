@@ -1,0 +1,144 @@
+﻿@model GestionComida.Models.Pedido
+    @using GestionComida.Models;
+
+@{
+    ViewBag.Title = "Details";
+}
+<style>
+    .botonCarrito {
+        visibility: hidden;
+        display: none;
+    }
+</style>
+
+<h2>Carrito</h2>
+
+<div>
+    <h4>Detalles</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        @*<dt>
+            @Html.DisplayNameFor(model => model.IdUsuario)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdUsuario)
+        </dd>*@
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaCompra)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaCompra)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaPago)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaPago)
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.FechaEnvio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaEnvio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaEntrega)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaEntrega)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaDevolucion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaDevolucion)
+        </dd>*@
+
+    </dl>
+</div>
+<div>
+    <table class="table">
+        <tr>
+            <th>Producto</th>
+            <th>Precio</th>
+            <th>Descripcion</th>
+            <th></th>
+            <th class="text-center">Cantidad</th>
+            <th></th>
+            <th>Total</th>
+            <th></th>
+        </tr>
+        @foreach (LineaPedidoProducto item in Model.LineaPedidoProducto)
+        {
+            if (item.Producto.Escaparate == true)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Producto.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Producto.Precio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Producto.Categoria.Descripcion)
+                    </td>
+                    <td class="text-center">
+                        @if(item.Cantidad > 1) { 
+                            @*@Html.ActionLink("-", "restarCantidad", "Carrito", new { IdPed = item.IdPedido, IdProd = item.IdProducto }, new { @class = "btn btn-warning" })*@
+                            <a href="@Url.Action("restarCantidad", "Carrito", new { IdPed = item.IdPedido, IdProd = item.IdProducto })" class="btn btn-warning"><i class="fas fa-minus"></i></a>
+                        }
+                    </td>
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => item.Cantidad)
+                    </td>
+                    <td class="text-center">
+                        @*@Html.ActionLink("+", "sumarCantidad", "Carrito", new { IdPed = item.IdPedido, IdProd = item.IdProducto }, new { @class = "btn btn-success" })*@
+                        <a href="@Url.Action("sumarCantidad", "Carrito", new { IdPed = item.IdPedido, IdProd = item.IdProducto })" class="btn btn-success"><i class="fas fa-plus"></i></a>
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PVP)
+                    </td>
+                    <td>
+                        @*@Html.ActionLink("Borrar", "Delete", "LineaPedidoProducto", new { item.IdPedido, item.IdProducto }, new { @class = "btn btn-danger" })*@
+                        <a href="@Url.Action("Delete", "LineaPedidoProducto", new { item.IdPedido, item.IdProducto })" class="btn btn-danger"><i class="fas fa-trash-alt"></i> Borrar</a>
+                    </td>
+                </tr>
+            }
+        }
+                <tr>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                    <th><h3>Total:</h3></th>
+                    <th>
+                        <h3>
+                            <i>
+                                <b>
+                                    @Model.LineaPedidoProducto.Sum(c => c.PVP).ToString("0.00")
+                                </b>
+                            </i>
+                        </h3>
+                    </th>
+                    @*<th><h3>@Html.ActionLink("Pagar", "Confirmar", "Carrito", new { IdPed = Model.Id }, new { @class = "btn btn-success" })</h3></th>*@
+                    <th><h3><a href="@Url.Action("Confirmar", "Carrito", new { IdPed = Model.Id })" class="btn btn-success"><i class="fas fa-money-bill-alt"></i> Pagar</a></h3></th>
+                </tr>
+    </table>
+
+</div>
+<p>
+    @*@Html.ActionLink("Volver a escaparate", "Index", "Escaparate", new { area = "" }, new { @class = "btn btn-primary" })*@
+    <a href="@Url.Action("Index", "Escaparate")" class="btn btn-primary"><i class="fas fa-undo"></i> Volver a la tienda</a>
+</p>

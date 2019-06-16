@@ -1,0 +1,72 @@
+﻿@model IEnumerable<GestionComida.Models.Producto>
+
+@{
+    ViewBag.Title = "Productos";
+}
+
+<h2>Productos</h2>
+
+<p>
+    @*@Html.ActionLink("Crear nuevo", "Create")*@
+    <a href="@Url.Action("Create")" class="btn btn-success"><i class="fas fa-plus"></i> Añadir un nuevo producto</a>
+    <a href="@Url.Action("Index", "Escaparate")" class="btn btn-info"><i class="far fa-eye"></i> Visualizar el escaparate</a>
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </th>
+        <th>
+            @*@Html.DisplayNameFor(model => model.Descripcion)*@
+            URL de la imagen
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Precio)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IVA)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Stock)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Escaparate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Categoria.Descripcion)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descripcion)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Precio)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IVA)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Stock)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Escaparate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Categoria.Descripcion)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Edit", new { id = item.Id }) |
+            @Html.ActionLink("Detalles", "Details", new { id = item.Id }) |
+            @Html.ActionLink("Borrar", "Delete", new { id = item.Id })
+        </td>
+    </tr>
+}
+</table>

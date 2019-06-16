@@ -1,0 +1,141 @@
+﻿@model GestionComida.Models.Pedido
+
+@{
+    ViewBag.Title = "Details";
+}
+<style>
+    .botonCarrito {
+        visibility: hidden;
+        display: none;
+    }
+</style>
+<h2>Details</h2>
+
+<div>
+    <h4>Pedido</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @*@Html.DisplayNameFor(model => model.Id)*@
+            ID pedido:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Id)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.FechaCompra)*@
+            Fecha de compra:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaCompra)
+        </dd>
+
+        <dt>
+            @*@Html.DisplayNameFor(model => model.FechaPago)*@
+            Fecha de pago:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaPago)
+        </dd>
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.FechaEnvio)
+            Fecha de envío:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaEnvio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaEntrega)
+            Fecha de entrega:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaEntrega)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaDevolucion)
+            Fecha de devolución:
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaDevolucion)
+        </dd>*@
+
+    </dl>
+</div>
+<div>
+    @*Hacer un foreach de los productos de este pedido Model.LineasPedidoProducto*@
+    @*@Html.ActionLink("Añadir producto", "Create", "LineaPedidoProducto")*@
+    <table class="table">
+        <tr>
+            <th>Producto</th>
+            <th>Precio</th>
+            <th>Descripcion</th>
+            <th class="text-center">Cantidad</th>
+            <th class="text-right">Total</th>
+            <th></th>
+        </tr>
+        @foreach (var item in Model.LineaPedidoProducto)
+        {
+            if (item.Producto.Escaparate == true)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Producto.Nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Producto.Precio)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Producto.Categoria.Descripcion)
+                    </td>
+                    <td class="text-center">
+                        @Html.DisplayFor(modelItem => item.Cantidad)
+                    </td>
+                    <td class="text-right">
+                        @Html.DisplayFor(modelItem => item.PVP)
+                    </td>
+                    <td>
+                        @*@Html.ActionLink("Editar", "Edit", "LineaPedidoProducto", new { item.IdPedido, item.IdProducto }, null) |*@
+                        @*@Html.ActionLink("Borrar", "Delete", "LineaPedidoProducto", new { item.IdPedido, item.IdProducto }, null)*@
+                    </td>
+
+                    @*cantida por precio*@
+                    @*<td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>*@
+                </tr>
+            }
+        }
+        <tr>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th class="text-center"><h3>Total:</h3></th>
+            <th class="text-right">
+                <h3>
+                    <i>
+                        <b>
+                            @Model.LineaPedidoProducto.Sum(c => c.PVP).ToString("0.00")
+                        </b>
+                    </i>
+                </h3>
+            </th>
+        </tr>
+    </table>
+</div>
+<p>
+    @*@Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |*@
+    @*@Html.ActionLink("Volver a pedidos", "Index")*@
+    <a href="@Url.Action("Index")" class="btn btn-primary"><i class="fas fa-undo"></i> Volver a pedidos</a>
+</p>

@@ -1,0 +1,17 @@
+﻿@model System.Web.Mvc.HandleErrorInfo
+
+@{
+    ViewBag.Title = "Error";
+}
+
+<h1 class="text-danger">Error.</h1>
+<h2 class="text-danger">Error al procesar la solicitud.</h2>
+<br />
+<p>Descripción: @Html.DisplayFor(model => model.Exception.Message)</p>
+<p>Tipo excepción: @Html.DisplayFor(model => model.Exception.Source)</p>
+<p>
+    Excepción interna: @Html.DisplayFor(model =>
+model.Exception.GetBaseException().Message)
+</p>
+<p>Controlador: @Html.DisplayFor(model => model.ControllerName)</p>
+<p>Acción: @Html.DisplayFor(model => model.ActionName)</p>

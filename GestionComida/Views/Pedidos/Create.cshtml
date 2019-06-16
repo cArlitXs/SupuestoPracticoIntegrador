@@ -1,0 +1,80 @@
+﻿@model GestionComida.Models.Pedido
+
+@{
+    ViewBag.Title = "Crear - Pedido";
+}
+<style>
+    .botonCarrito {
+        visibility: hidden;
+        display: none;
+    }
+</style>
+<h2>Crear</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+<div class="form-horizontal">
+    <h4>Pedido</h4>
+    <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(Model => Model.Id)
+    @Html.HiddenFor(Model => Model.IdUsuario)
+
+    @*<div class="form-group">
+        @Html.LabelFor(model => model.FechaCompra, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.JQueryUI().DatepickerFor(model => model.FechaCompra, new { placeholder = "Fecha de compra", @class = "form-control" }).ShowButtonPanel(true).ChangeYear(true).ChangeMonth(true)
+            @Html.ValidationMessageFor(model => model.FechaCompra, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.FechaPago, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.JQueryUI().DatepickerFor(model => model.FechaPago, new { placeholder = "Fecha de pago", @class = "form-control" }).ShowButtonPanel(true).ChangeYear(true).ChangeMonth(true)
+            @Html.ValidationMessageFor(model => model.FechaPago, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.FechaEnvio, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.JQueryUI().DatepickerFor(model => model.FechaEnvio, new { placeholder = "Fecha de envío", @class = "form-control" }).ShowButtonPanel(true).ChangeYear(true).ChangeMonth(true)
+            @Html.ValidationMessageFor(model => model.FechaEnvio, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.FechaEntrega, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.JQueryUI().DatepickerFor(model => model.FechaEntrega, new { placeholder = "Fecha de entrega", @class = "form-control" }).ShowButtonPanel(true).ChangeYear(true).ChangeMonth(true)
+            @Html.ValidationMessageFor(model => model.FechaEntrega, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.FechaDevolucion, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.JQueryUI().DatepickerFor(model => model.FechaDevolucion, new { placeholder = "Fecha de devolución", @class = "form-control" }).ShowButtonPanel(true).ChangeYear(true).ChangeMonth(true)
+            @Html.ValidationMessageFor(model => model.FechaDevolucion, "", new { @class = "text-danger" })
+        </div>
+    </div>*@
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Solicitar un nuevo pedido" class="btn btn-primary" />
+        </div>
+    </div>
+</div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
